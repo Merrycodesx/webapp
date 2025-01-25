@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Merry's Telegram Web App</h1>
+    <p id="username">Fetching your name...</p>
+    <button onclick="closeApp()">Close App</button>
+    
+    <!-- Telegram Login Widget -->
+    <script async src="https://telegram.org/js/telegram-widget.js?8"
+        data-telegram-login="your_bot_username" 
+        data-size="large" 
+        data-auth-url="https://yourapp.vercel.app/auth" 
+        data-request-access="write"></script>
+
+    <script>
+        // Initialize Telegram Web App
+        const tg = window.Telegram.WebApp;
+
+        // Show the username
+        const username = tg.initDataUnsafe?.user?.username || "Guest";
+        document.getElementById("username").innerText = `Hello, ${username}!`;
+
+        // Close the Web App
+        function closeApp() {
+            tg.close();
+        }
+
+        // Expand the app to full size
+        tg.expand();
+    </script>
+</body>
+</html>
+
